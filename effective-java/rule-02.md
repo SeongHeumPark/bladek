@@ -58,15 +58,6 @@ public class NutritionFacts {
   public void setSodium(int val) { sodium = val; }
   public void setCarbohydrate(int val) { carbohydrate = val; }
 }
-
-...
-
-NutritionFacts cocaCola = new NutirtionFacts();
-cocaCola.setServingSize(240);
-cocaCola.setServings(8);
-cocaCola.setCalories(100);
-cocaCola.setSodium(35);
-cocaCola.setCarbohydrate(27);
 ```
 - 1회 함수 호출로 객체 생성을 끝낼 수 없음
 - 객체 일관성이 일시적으로 깨질 수 있음
