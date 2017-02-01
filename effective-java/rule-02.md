@@ -36,7 +36,8 @@ public class NutritionFacts {
   }
 }
 ```
-- 인자 수가 늘어나면 클라이언트 코드를 작성하기 어려워지고, 무엇보다 읽기 어려운 코드가 된다.
+- 인자 수가 늘어나면 클라이언트 코드를 작성하기 어려
+- 무엇보다 읽기 어려운 코드가 
 
 ### 자바빈 패턴
 ```
@@ -47,8 +48,8 @@ public class NutritionFacts {
   private int fat = 0;
   private int sodium = 0;
   private int carbohydrate = 0;
-  
-  public NutritionFacts() { }
+  
+  public NutritionFacts() { }
   
   public void setServingSize(int val) { servingSize = val; }
   public void setServings(int val) { servings = val; }
