@@ -64,7 +64,7 @@ public class NutritionFacts {
 - 변경 불가능한 클래스를 만들 수 없음
 - 스레드 안정성도 보장할 수 없음
 
-## 빌더 패턴
+### 빌더 패턴
 ```
 public class NutritionFacts {
   private final int servingSize;
