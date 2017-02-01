@@ -2,38 +2,30 @@
 
 ### 점층적 생성자 패턴
 ```
-public class NutritionFacts {
-  private final int servingSize;    // (mL)             필수
-  private final int servings;       // (per container)  필수
-  private final int calories;       //                  선택
-  private final int fat;            // (g)              선택
-  private final int sodium;         // (mg)             선택
-  private final int carbohydrate    // (g)              선택
-  
-  public NutritionFacts(int servingSize, int servings) {
-    this(servingSize, servings, 0);
-  }
-  
-  public NutritionFacts(int servingSize, int servings, int calories) {
-    this(servingSize, servings, calories, 0);
-  }
-  
-  public NutritionFacts(int servingSize, int servings, int calories, int fat) {
-    this(servingSize, servings, calories, fat, 0);
-  }
-  
-  public NutritionFacts(int servingSize, int servings, int calories, int fat, int sodium) {
-    this(servingSize, servings, calories, fat, sodium, 0);
-  }
-  
-  public NutritionFacts(int servingSize, int servings, int calories, int fat, int sodium, int carbohydrate) {
-    this.servingSize = servingSize;
-    this.servings = servings;
-    this.calories = calories;
-    this.fat = fat;
-    this.sodium = sodium;
-    this.carbohydrate = carbohydrate;
-  }
+public class Product {
+    private final int code;
+    private final String name;
+    private final String serial;
+    private final String date;
+
+    public Product(int code) {
+        this(code, "none");
+    }
+
+    public Product(int code, String name) {
+        this(code, name, "empty");
+    }
+
+    public Product(int code, String name, String serial) {
+        this(code, name, serial, "0000-00-00");
+    }
+
+    public Product(int code, String name, String serial, String date) {
+        this.code = code;
+        this.name = name;
+        this.serial = serial;
+        this.date = date;
+    }
 }
 ```
 - 인자 수가 늘어나면 클라이언트 코드를 작성하기 어려
@@ -41,22 +33,29 @@ public class NutritionFacts {
 
 ### 자바빈 패턴
 ```
-public class NutritionFacts {
-  private int servingSize = -1;
-  private int servings = -1;
-  private int calories = 0;
-  private int fat = 0;
-  private int sodium = 0;
-  private int carbohydrate = 0;
-  
-  public NutritionFacts() { }
-  
-  public void setServingSize(int val) { servingSize = val; }
-  public void setServings(int val) { servings = val; }
-  public void setCalories(int val) { calories = val; }
-  public void setFat(int val) { fat = val; }
-  public void setSodium(int val) { sodium = val; }
-  public void setCarbohydrate(int val) { carbohydrate = val; }
+public class Product {
+    private int code;
+    private String name;
+    private String serial;
+    private String date;
+
+    public Product() { }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 }
 ```
 - 1회 함수 호출로 객체 생성을 끝낼 수 없음
@@ -66,59 +65,48 @@ public class NutritionFacts {
 
 ### 빌더 패턴
 ```
-public class NutritionFacts {
-  private final int servingSize;
-  private final int servings;
-  private final int calories;
-  private final int fat;
-  private final int sodium;
-  private final int carbohydrate;
-  
-  public static class Builder {
-    private final int servingSize;
-    private final int servings;
-    private final int calories = 0;
-    private final int fat = 0;
-    private final int sodium = 0;
-    private final int carbohydrate = 0;
-    
-    public Builder(int servingSize, int servings) {
-      this.servingSize = servingSize;
-      this.servings = servings;
+public class Product {
+    private final int code;
+    private final String name;
+    private final String serial;
+    private final String date;
+
+    public static class Builder {
+        private int code;
+        private String name = "none";
+        private String serial = "empty";
+        private String date = "0000-00-00";
+
+        public Builder code(int code) {
+            this.code = code;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder serial(String serial) {
+            this.serial = serial;
+            return this;
+        }
+
+        public Builder date(String date) {
+            this.date = date;
+            return this;
+        }
+
+        public Product build() {
+            return new Product(this);
+        }
     }
-    
-    public Builder calories(int val) {
-      calroies = val;
-      return this;
+
+    private Product(Builder builder) {
+        code = builder.code;
+        name = builder.name;
+        serial = builder.serial;
+        date = builder.date;
     }
-    
-    public Builder fat(int val) {
-      fat = val;
-      return this;
-    }
-    
-    public Builder sodium(int val) {
-      sodium = val;
-      return this;
-    }
-    
-    public Builder carbohydrate(int val) {
-      carbohydrate = val;
-      return this;
-    }
-    
-    public NutritionFacts build() {
-      return new NutritionFacts(this);
-    }
-  }
-  
-  private NutritionFacts(Builder builder) {
-    servingSize = builder.servingSize;
-    servings = builder.servings;
-    carlories = builder.calories;
-    fat = builder.fat;
-    sodium = builder.sodium;
-    carbohydrate = builder.carbohydrate;
-  }
 }
 ```
