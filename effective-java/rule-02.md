@@ -63,3 +63,61 @@ public class NutritionFacts {
 - 객체 일관성이 일시적으로 깨질 수 있음
 - 변경 불가능한 클래스를 만들 수 없음
 - 스레드 안정성도 보장할 수 없음
+
+## 빌더 패턴
+```
+public class NutritionFacts {
+  private final int servingSize;
+  private final int servings;
+  private final int calories;
+  private final int fat;
+  private final int sodium;
+  private final int carbohydrate;
+  
+  public static class Builder {
+    private final int servingSize;
+    private final int servings;
+    private final int calories = 0;
+    private final int fat = 0;
+    private final int sodium = 0;
+    private final int carbohydrate = 0;
+    
+    public Builder(int servingSize, int servings) {
+      this.servingSize = servingSize;
+      this.servings = servings;
+    }
+    
+    public Builder calories(int val) {
+      calroies = val;
+      return this;
+    }
+    
+    public Builder fat(int val) {
+      fat = val;
+      return this;
+    }
+    
+    public Builder sodium(int val) {
+      sodium = val;
+      return this;
+    }
+    
+    public Builder carbohydrate(int val) {
+      carbohydrate = val;
+      return this;
+    }
+    
+    public NutritionFacts build() {
+      return new NutritionFacts(this);
+    }
+  }
+  
+  private NutritionFacts(Builder builder) {
+    servingSize = builder.servingSize;
+    servings = builder.servings;
+    carlories = builder.calories;
+    fat = builder.fat;
+    sodium = builder.sodium;
+    carbohydrate = builder.carbohydrate;
+  }
+}
