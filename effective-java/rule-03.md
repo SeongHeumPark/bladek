@@ -11,22 +11,18 @@
 
 - 정적 팩터리 메소드를 이용한 싱글턴 _(JDK 1.5 이전)_
 
-```
-public class ProductManager {
-	private static final ProductManager INSTANCE = new ProductManager();
+	<pre><code>public class ProductManager {
+		private static final ProductManager INSTANCE = new ProductManager();
 
-	private ProductManager() { }
+		private ProductManager() { }
 
-	public static ProductManager getInstance() {
-		return INSTANCE;
-	}
-}
-```
+		public static ProductManager getInstance() {
+			return INSTANCE;
+		}
+	}</code></pre>
 
 - enum 클래스를 이용한 싱글턴 _(JDK 1.5 이상)_
 
-  ```
-  public enum ProductManager {
-  	INSTANCE;
-  }
-  ```
+	</code></pre>public enum ProductManager {
+		INSTANCE;
+	}</code></pre>
