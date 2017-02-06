@@ -2,19 +2,19 @@
 
 ### 점층적 생성자 패턴
   <pre><code>public class Product {
-  private final int code;
-  private final String name;
-  private final String serial;
-  private final String date;
-
-  public Product(int code) {
-    this(code, "none");
-  }
-
+    private final int code;
+    private final String name;
+    private final String serial;
+    private final String date;
+    
+    public Product(int code) {
+      this(code, "none");
+     }
+     
   public Product(int code, String name) {
     this(code, name, "empty");
   }
-
+  
 	public Product(int code, String name, String serial) {
 		this(code, name, serial, "0000-00-00");
 	}
