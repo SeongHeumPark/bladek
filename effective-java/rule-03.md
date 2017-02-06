@@ -9,6 +9,7 @@ public class ProductManager {
     private ProductManager() { }
 }
 ```
+
 - 정적 팩터리 메소드를 이용한 싱글턴 _(JDK 1.5 이전)_  
 ```
 public class ProductManager {
@@ -21,6 +22,7 @@ public class ProductManager {
     }
 }
 ```
+
 - enum 클래스를 이용한 싱글턴 _(JDK 1.5 이상)_  
 ```
 public enum ProductManager {
