@@ -26,8 +26,9 @@ public class ProductManager {
 ```
 
 - enum 클래스를 이용한 싱글턴 _(JDK 1.5 이상)_
-```
-public enum ProductManager {
-	INSTANCE;
-}
-```
+
+	```
+	public enum ProductManager {
+		INSTANCE;
+	}
+	```
