@@ -1,8 +1,7 @@
 ## 생성자 인자가 많을 때는 Builder 패턴 적용을 고려하라
 
 ### 점층적 생성자 패턴
-
-<pre><code>	public class Product {
+<pre><code>			public class Product {
 		private final int code;
 		private final String name;
 		private final String serial;
@@ -26,7 +25,7 @@
             this.serial = serial;
             this.date = date;
         }
-    }
+}
 </code></pre>
 
 - 인자 수가 늘어나면 클라이언트 코드를 작성하기 어려
