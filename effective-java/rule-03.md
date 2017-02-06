@@ -23,6 +23,6 @@
 
 - enum 클래스를 이용한 싱글턴 _(JDK 1.5 이상)_
 
-	</code></pre>public enum ProductManager {
+	<pre><code>public enum ProductManager {
 		INSTANCE;
 	}</code></pre>
