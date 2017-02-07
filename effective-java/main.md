@@ -6,3 +6,10 @@ __[04. 객체 생성을 막을 때는 private 생성자를 사용하라.](https:
 __[05. 불필요한 객체는 만들지 말라.](https://seongheumpark.github.io/bladek/effective-java/rule-05)__  
 __[06. 유효기간이 지난 객체 참조는 폐기하라.](https://seongheumpark.github.io/bladek/effective-java/rule-06)__  
 __[07. 종료자 사용을 피하라.](https://seongheumpark.github.io/bladek/effective-java/rule-07)__
+
+
+__[08. equals를 재정의할 때는 일반 규약을 따르라.](https://seongheumpark.github.io/bladek/effective-java/rule-08)__  
+__[09. equals를 재정의할 때는 반드시 hashCode도 재정의하라.](https://seongheumpark.github.io/bladek/effective-java/rule-09)__  
+__[10.toString은 항상 재정의하라.](https://seongheumpark.github.io/bladek/effective-java/rule-10)__  
+__[11. clone을 재정의할 때는 신중하라.](https://seongheumpark.github.io/bladek/effective-java/rule-11)__  
+__[12. Comparable 구현을 고려하라.](https://seongheumpark.github.io/bladek/effective-java/rule-12)__
