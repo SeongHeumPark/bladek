@@ -3,13 +3,13 @@
 ### Cloneable
 - 어떤 객체의 복제를 허용한다는 사실을 알리는 __믹스인 인터페이스__
 - __믹스인 인터페이스__
-  + 클래스가 자신의 "본래 타입"에 추가하여 구현할 수 있는 타입
+  + 클래스가 자신의 __본래 타입__에 추가하여 구현할 수 있는 타입
   + 선택 가능한 기능을 제공
   + 그 기능을 제공 받고자 하는 클래스에서 선언
     * 클라우드 소스 중 `DataHomeActionInterface`가 이에 해당
 
 
-### clone의 일반 규약
+### clone 일반 규약
 - 객체의 복사본을 만들어서 반환한다.
 - 이 때, "복사"의 정확한 의미는 클래스마다 다르다.
   1. x.clone() != x __반드시 참__
@@ -29,10 +29,11 @@
 
 ### 현명한 clone 제공 방법
 - 복사 생성자
-  <pre><code>public Product(Product product)</pre></code>
+  ```public Product(Product product)```
+
 
 - 복사 팩터리
-  <pre><code>public static Product newInstance(Product product)</pre></code>
+  ```public static Product newInstance(Product product)```
 
 ### 결론
 - 앵간하면 clone을 막는 것이 좋을 것 같다.
