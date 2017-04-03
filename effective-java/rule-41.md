@@ -59,7 +59,7 @@ public class CollectionClassifier {
     	return "Set";
 	}
 
-	public static classifyList(<List<?> lst) {
+	public static classifyList(List<?> lst) {
     	return "List";
 	}
   

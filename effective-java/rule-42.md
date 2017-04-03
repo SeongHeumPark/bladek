@@ -35,3 +35,4 @@ ReturnType1 suspect1(Object... args) { ... }
 
 - varargs는 정말 가변적인 메서드를 정의할 때만 사용하라.
 - 남용되면 곤란하다.
+
