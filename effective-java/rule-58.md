@@ -12,9 +12,9 @@
 
 ### 일반 규칙
 
-- caller 측에서 복구할 것으로 여겨지는 상황에 대해서는 checked exception을 사용
-- 프로그래밍 오류를 표현할 때는 runtime exception을 사용
-- 사용자 정의 unchecked throwable은 `RuntimeException`의 __하위__로 만들어야 함
+- caller 측에서 __복구__할 것으로 여겨지는 상황에 대해서는 __checked exception__을 사용
+- __프로그래밍 오류__를 표현할 때는 __runtime exception__을 사용
+- 사용자 정의 __unchecked throwable__은 `RuntimeException`의 __하위__로 만들어야 함
 
 ### 정리
 
