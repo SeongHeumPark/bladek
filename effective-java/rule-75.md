@@ -116,6 +116,6 @@ public final class StringList implements Serializable {
   private static final long serialVersionUID = 10203901202L // 사실 무작위 Long 값
   ```
 
-### 결론
+### 정리
 
 - 어떤 직렬화 형식이 적절할지 따져보지도 않고 기본 직렬화 형식을 그대로 받아들이지 마라.
