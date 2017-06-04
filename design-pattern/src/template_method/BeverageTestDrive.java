@@ -1,17 +1,18 @@
 package template_method;
 
-import template_method.general.Tea;
-import template_method.general.Coffee;
+import template_method.hook.CoffeeWithHook;
+import template_method.hook.TeaWithHook;
 
 /**
  * @author seongheum.park
  */
 public class BeverageTestDrive {
     public static void main(String[] args) {
-        Tea tea = new Tea();
+        TeaWithHook tea = new TeaWithHook();
         tea.prepareRecipe();
-
-        Coffee coffee = new Coffee();
+        System.out.println();
+        
+        CoffeeWithHook coffee = new CoffeeWithHook();
         coffee.prepareRecipe();
     }
 }
