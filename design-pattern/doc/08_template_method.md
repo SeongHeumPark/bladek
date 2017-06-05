@@ -23,13 +23,9 @@
 ### 정의
 
 - 메소드에서 __알고리즘의 골격(템플릿)__을 정의
-
 - 알고리즘의 여러 단계 중 일부는 __서브 클래스__에서 구현
-
 - __알고리즘 구조는 유지__하면서 __서브 클래스__에서 특정 단계를 __재정의__
-
 - 코드
-
   ```java
   public abstract class AbstractClass {
   	final void templateMethod() {
@@ -48,14 +44,9 @@
   }
   ```
 
-
-
 ### 후크 메소드
-
 - __추상 클래스__에 들어있는 기본적인 내용 or 아무 동작하지 않는 코드만 있는 메소드
-
 - 코드
-
   ``` java
   public abstract class AbstractClass {
   	final void templateMethod() {
@@ -78,12 +69,9 @@
   	}
   }
   ```
-
 - __필요한 서브 클래스만__ 재정의
 
-
 ### 야생의 템플릿 메소드
-
 - `Comparable` 인터페이스의 `compareTo()` 메소드
   - `Arrays` 클래스의 `sort()` 메소드에서 필요
   - `Arrays.sort()` 메소드를 어떤 클래스에서든 사용 가능하도록 설계
@@ -98,9 +86,7 @@
   - `getView()` 함수는 __서브클래스에서 구현__되되록 함
   - [Adapter.java](https://github.com/android/platform_frameworks_base/blob/master/core/java/android/widget/Adapter.java) [BaseAdapter.java](https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/widget/BaseAdapter.java)
 
-
 ### 템플릿 메소드 패턴 vs. 전략 패턴
-
 - __상속__ vs. __구성__
 - __추상 클래스__ vs. __인터페이스__
 - 알고리즘에 대한 __의존성__
@@ -108,6 +94,5 @@
   - 즉, __전략 패턴__이 더 유연
 
 ## 정리
-
 - `interface`로 __템플릿 메소드 패턴을 구현__했다면 __전략 패턴__과 많이 헷갈림
 - 두 패턴의 차이점을 잘 알아둘 것
