@@ -64,17 +64,44 @@
 
 - 대피할 곳(Source Region)을 확인(선정)
 - 대피의 목적은 높은 분열 지역(region with high fragmentation) 밖으로 복사하기 위한 것
-- 위에 예제에서는 중앙의 두 영역을 선택함 (20% 이하로 분열되었기 때문)
+- 위에 예제에서는 중앙의 두 영역을 선택함 (20%로(이하로?) 분열되었기 때문)
 
 ![copying_phase_1](images/copying_phase_1.png)
 
-g
+- Source region의 객체는 참조되지 않으며 Destination region으로 복사함
+- Source region의 객체는 Destination region의 객체의 주소를 가리킴 (GC Reference Update)
 
 ![copying_phase_2](images/copying_phase_2.png)
 
+- 앱은 동시에 여러 스레드 구조를 가질 수 있음
+- 때문에 GC가 실행되는 동안에 이 스레드들을 멈추지 않는 방법이 필요
+  (반대로 말하자면, GC 중인 객체를 참조하는 것을 막을 방법이 필요)
+- 그래서 나온 테크닉이 __Read Barrier__
+
 ![copying_phase_3](images/copying_phase_3.png)
 
+- __Read Barrier__는 다른 스레드가 Source Region의 객체를 읽으려 할 때,  해당 읽기를 가로챔
+- 위 그림은 A Thread가 bar 객체를 참조하려 함
+
+![copying_phase_4](images/copying_phase_4.png)
+
+- 가로챈 읽기를 Destination region의 복사된 객체의 주소를 참조하도록 함
+- Source region에서 더이상 복사할 객체 없을 때 까지 반복
+
 ![reclaim_phase](images/reclaim_phase.png)
+
+- Source Region에서 더이상 복사할 내용이 없으면 Reclaim Phase로 돌입
+- 이런 상황이 되면 GC는 Source Region의 RAM을 비울 수 있게 됨
+
+![collection_is_finished](images/collection_is_finished.png)
+
+- GC 끝
+
+![gc_pause_time](images/gc_pause_time.png)
+
+- 이런 새로운 GC로 인해 많은 GC Pause 시간을 줄일 수 있었음 (즉, 성능 향상)
+
+![system_wide_ram_benefits](images/system_wide_ram_benefits.png)
 
 ### Android Performance Case Study: Sheets
 
@@ -89,3 +116,23 @@ g
 
 ### Loop Optimizations
 
+![loop_optimizations](images/loop_optimizations.png)
+
+- 프로그램 대부분은 루프에서 시간을 소비하는 경향이 있다고 함
+- 안드로이드에서는 이 부분의 시간을 줄이려고 분석하고 최적화했다고 함
+
+![benchmark_performance](images/benchmark_performance.png)
+
+- Nougat에 비해 향상된 속도를 보여줌
+- 다음 부턴 선형대수와 관련된 얘기들이 나옴... (pass...)
+
+![induction_variable_simplification](images/induction_variable_simplification.png)
+
+![loop_unrolling](images/loop_unrolling.png)
+
+![BCE](images/BCE.png)
+
+![vectorization](images/vectorization.png)
+
+- 위와 같이 네 가지 정도의 최적화 기법에 대해서 설명함
+- 자세한 설명은 영상 참고를 부탁드림...
