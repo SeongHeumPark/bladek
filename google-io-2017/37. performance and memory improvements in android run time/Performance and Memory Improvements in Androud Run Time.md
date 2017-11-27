@@ -62,7 +62,13 @@
 
 ![pause_phase](images/pause_phase.png)
 
+- 대피할 곳(Source Region)을 확인(선정)
+- 대피의 목적은 높은 분열 지역(region with high fragmentation) 밖으로 복사하기 위한 것
+- 위에 예제에서는 중앙의 두 영역을 선택함 (20% 이하로 분열되었기 때문)
+
 ![copying_phase_1](images/copying_phase_1.png)
+
+g
 
 ![copying_phase_2](images/copying_phase_2.png)
 
