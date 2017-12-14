@@ -3,8 +3,10 @@ import common.Log;
 import data.Shape;
 import helper.OkHttpHelper;
 import io.reactivex.Observable;
+import io.reactivex.functions.Action;
 import io.reactivex.observables.GroupedObservable;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -31,7 +33,15 @@ public class Chapter4Test {
 //        test.switchMap();
 //        test.groupBy1();
 //        test.groupBy2();
-        test.scan();
+//        test.scan();
+//        test.zip();
+//        test.zipNumbers();
+//        test.zipInterval();
+//        test.electricBillV1();
+//        test.electricBillV2();
+//        test.zipWith();
+//        test.combineLatest();
+        test.concat();
     }
 
     private void interval1() {
@@ -184,5 +194,143 @@ public class Chapter4Test {
         Observable<String> source = Observable.fromArray(balls)
                 .scan((ball1, ball2) -> ball2 + "(" + ball1 + ")");
         source.subscribe(Log::i);
+    }
+
+    private void zip() {
+        Shape[] shapes = { Shape.BALL, Shape.PENTAGON, Shape.STAR };
+        String[] coloredTriangles = { "2-T", "6-T", "4-T" };
+        Observable<String> source = Observable.zip(
+                Observable.fromArray(shapes).map(Shape::getSuffix),
+                Observable.fromArray(coloredTriangles).map(Shape::getColor),
+                (suffix, color) -> color + suffix);
+        source.subscribe(Log::i);
+    }
+
+    private void zipNumbers() {
+        Observable<Integer> source = Observable.zip(
+                Observable.just(100, 200, 300),
+                Observable.just(10, 20, 30),
+                Observable.just(1, 2, 3),
+                (a, b, c) -> a + b + c);
+        source.subscribe(Log::i);
+    }
+
+    private void zipInterval() {
+        Observable<String> source = Observable.zip(
+                Observable.just("RED", "GREEN", "BLUE"),
+                Observable.interval(200L, TimeUnit.MILLISECONDS),
+                (value, i) -> value);
+
+        CommonUtils.exampleStart();
+        source.subscribe(Log::it);
+        CommonUtils.sleep(1000);
+    }
+
+    private int index = 0;
+
+    private void electricBillV1() {
+        Integer[] data = {100, 300};
+
+        Observable<Integer> basePrice = Observable.fromArray(data)
+                .map(val -> {
+                    if (val <= 200) return 910;
+                    else if (val <= 400) return 1600;
+                    else return 7300;
+                });
+
+        Observable<Integer> usagePrice = Observable.fromArray(data)
+                .map(val -> {
+                    double series1 = Math.min(200, val) * 93.3;
+                    double series2 = Math.min(200, Math.max(val - 200, 0)) * 187.9;
+                    double series3 = Math.min(0, Math.max(val - 400, 0)) * 280.65;
+                    return (int) (series1 + series2 + series3);
+                });
+
+        Observable<Integer> source = Observable.zip(
+                basePrice,
+                usagePrice,
+                (v1, v2) -> v1 + v2);
+
+        source
+            .map(val -> new DecimalFormat("#,###").format(val))
+            .subscribe(val -> {
+                StringBuilder sb = new StringBuilder();
+                sb.append("Usage: " + data[index] + " kWh => ");
+                sb.append("Price: " + val + "원");
+                Log.i(sb.toString());
+
+                index++;
+            });
+    }
+
+    private void electricBillV2() {
+        Integer[] data = {100, 300};
+
+        Observable<Integer> basePrice = Observable.fromArray(data)
+                .map(val -> {
+                    if (val <= 200) return 910;
+                    else if (val <= 400) return 1600;
+                    else return 7300;
+                });
+
+        Observable<Integer> usagePrice = Observable.fromArray(data)
+                .map(val -> {
+                    double series1 = Math.min(200, val) * 93.3;
+                    double series2 = Math.min(200, Math.max(val - 200, 0)) * 187.9;
+                    double series3 = Math.min(0, Math.max(val - 400, 0)) * 280.65;
+                    return (int) (series1 + series2 + series3);
+                });
+
+        Observable<String> source = Observable.zip(
+                Observable.fromArray(data),
+                basePrice,
+                usagePrice,
+                (u, v1, v2) ->
+                    "Usage: " + u + " kWh => Price: " + new DecimalFormat("#,###").format(v1 + v2) + "원");
+        source.subscribe(Log::i);
+    }
+
+    private void zipWith() {
+        Observable<Integer> source = Observable.zip(
+            Observable.just(100, 200, 300),
+            Observable.just(10, 20, 30),
+            (a, b) -> a + b)
+                .zipWith(Observable.just(1, 2, 3), (ab, c) -> ab + c);
+        source.subscribe(Log::i);
+    }
+
+    private void combineLatest() {
+        Integer[] numbers = { 6, 7, 4, 2 };
+        Shape[] shapes = { Shape.DIAMOND, Shape.STAR, Shape.PENTAGON };
+
+        Observable<String> source = Observable.combineLatest(
+            Observable.fromArray(numbers)
+                .zipWith(Observable.interval(100L, TimeUnit.MILLISECONDS),
+                    (number, notUsed) -> number),
+            Observable.fromArray(shapes)
+                .zipWith(Observable.interval(150L, 200L, TimeUnit.MILLISECONDS),
+                    (shape, notUsed) -> Shape.getSuffix(shape)),
+            (v1, v2) -> v1 + v2);
+        source.subscribe(Log::i);
+        CommonUtils.sleep(1000);
+    }
+
+    private void concat() {
+        Action onCompleteAction = () -> Log.d("onComplete()");
+
+        Integer[] data1 = { 1, 3, 5 };
+        Integer[] data2 = { 2, 4, 6 };
+        Observable<Integer> source1 = Observable.fromArray(data1)
+            .doOnComplete(onCompleteAction);
+        Observable<Integer> source2 = Observable.interval(100L, TimeUnit.MILLISECONDS)
+            .map(Long::intValue)
+            .map(idx -> data2[idx])
+            .take(data2.length)
+            .doOnComplete(onCompleteAction);
+
+        Observable<Integer> source = Observable.concat(source1, source2)
+            .doOnComplete(onCompleteAction);
+        source.subscribe(Log::i);
+        CommonUtils.sleep(1000);
     }
 }
