@@ -15,7 +15,8 @@ public enum Shape {
     TRIANGLE("T", "TRIANGLE"),
     RECTANGLE("R", "RECTANGLE"),
     PENTAGON("P", "PENTAGON"),
-    DIAMOND("◇", "DIAMOND"),
+    DIAMOND("<>", "DIAMOND"),
+    STAR("S", "STAR"),
     BALL("", "BALL");
 
     private static Map<String, Shape> shapes = new HashMap<>();
@@ -43,6 +44,24 @@ public enum Shape {
         }
 
         return builder.toString();
+    }
+
+    public static String getSuffix(Shape shape) {
+        if (shape == null) {
+            return "-" + NO_SHAPE.key;
+        } else if (StringUtils.isEmpty(shape.key) || shape == DIAMOND) {
+            return shape.key;
+        } else {
+            return "-" + shape.key;
+        }
+    }
+
+    public static String getColor(String colorShape) {
+        if (StringUtils.isEmpty(colorShape)) {
+            return "";
+        } else {
+            return colorShape.split("-")[0];
+        }
     }
 
     public static Shape fromString(String shape) {
