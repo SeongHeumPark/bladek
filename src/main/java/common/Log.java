@@ -26,6 +26,10 @@ public class Log {
         System.out.println(getThreadName() + " | error = " + obj);
     }
 
+    public static void v(Object obj) {
+        System.out.println(getThreadName() + " | " + obj);
+    }
+
     private static String getThreadName() {
         return Thread.currentThread().getName();
     }

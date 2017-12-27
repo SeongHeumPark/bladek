@@ -13,6 +13,14 @@ import java.io.IOException;
 public class OkHttpHelper {
     private static OkHttpClient client = new OkHttpClient();
 
+    public static String getWithLog(String url) throws IOException {
+        String response = get(url);
+
+
+
+        return response;
+    }
+
     public static String get(String url) throws IOException {
         Request request = new Request.Builder()
                 .url(url)

@@ -77,6 +77,10 @@ public enum Shape {
         }
     }
 
+    public static String flip(String shape) {
+        return "(flipped)" + shape;
+    }
+
     @Override
     public String toString() {
         return name;
